@@ -2,6 +2,9 @@
 
 use Illuminate\Routing\Router;
 
+/**
+ *
+ */
 Admin::registerAuthRoutes();
 
 Route::group([

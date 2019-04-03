@@ -12,6 +12,33 @@
 
 namespace App{
 /**
+ * App\Movies
+ *
+ * @property int $id
+ * @property string|null $title
+ * @property int|null $director
+ * @property int|null $rate
+ * @property string|null $released
+ * @property string|null $release_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Movies newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Movies newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Movies query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Movies whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Movies whereDirector($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Movies whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Movies whereRate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Movies whereReleaseAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Movies whereReleased($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Movies whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Movies whereUpdatedAt($value)
+ */
+	class Movies extends \Eloquent {}
+}
+
+namespace App{
+/**
  * App\User
  *
  * @property int $id

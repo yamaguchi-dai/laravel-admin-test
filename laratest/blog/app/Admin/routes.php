@@ -14,5 +14,7 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index');
-    $router->resource('user',UserController::class);
+    $router->resource('system/user',UserController::class);
+    $router->resource('movie',MoviesController::class);
+    $router->get('/api/users','UserController@users');
 });

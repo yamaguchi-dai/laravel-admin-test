@@ -2,17 +2,16 @@
 
 namespace App\Admin\Controllers;
 
-use App\tmps;
-use App\User;
+use App\Movies;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
-use Illuminate\Http\Request;
+use App\User;
 
-class UserController extends Controller
+class MoviesController extends Controller
 {
     use HasResourceActions;
 
@@ -69,15 +68,9 @@ class UserController extends Controller
     public function create(Content $content)
     {
         return $content
-            ->header('作る太郎')
+            ->header('Create')
             ->description('description')
-            ->body($this->form())
-            ->body(function(){
-                $form = new Form(new tmps());
-                $form->text('column1');
-                return $form;
-            })
-            ;
+            ->body($this->form());
     }
 
     /**
@@ -87,15 +80,16 @@ class UserController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new User);
+        $grid = new Grid(new Movies);
 
-        $grid->id('ID')->sortable();
-        $grid->name('名前');
-        $grid->email('EMAIL');
-//        $grid->password('Password');
-//        $grid->remember_token('Remember token');
-//        $grid->created_at('Created at');
-//        $grid->updated_at('Updated at');
+        $grid->id('Id');
+        $grid->title('Title');
+        $grid->director('Director');
+        $grid->rate('Rate');
+        $grid->released('Released');
+        $grid->release_at('Release at');
+        $grid->created_at('Created at');
+        $grid->updated_at('Updated at');
 
         return $grid;
     }
@@ -108,13 +102,14 @@ class UserController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(User::findOrFail($id));
+        $show = new Show(Movies::findOrFail($id));
 
         $show->id('Id');
-        $show->name('Name');
-        $show->email('Email');
-        $show->password('Password');
-        $show->remember_token('Remember token');
+        $show->title('Title');
+        $show->director('監督');
+        $show->rate('レート');
+        $show->released('発売日');
+        $show->release_at('Release at');
         $show->created_at('Created at');
         $show->updated_at('Updated at');
 
@@ -128,12 +123,14 @@ class UserController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new User);
+        $form = new Form(new Movies);
 
-        $form->email('email', 'Email');
-        $form->password('password', 'Password');
-        $form->text('remember_token', 'Remember token');
-        $form->select('parent_user_id','親')->options(function ($id) {
+        $form->text('title', 'Title');
+        $form->number('director', 'Director');
+        $form->number('rate', 'Rate');
+        $form->date('released', 'Released')->default(date('Y-m-d'));
+        $form->datetime('release_at', 'Release at')->default(date('Y-m-d H:i:s'));
+        $form->select('user_id')->options(function ($id) {
             $user = User::find($id);
 
             if ($user) {
@@ -142,11 +139,5 @@ class UserController extends Controller
         })->ajax('/admin/api/users');
 
         return $form;
-    }
-    public function users(Request $request)
-    {
-        $q = $request->get('q');
-
-        return User::where('name', 'like', "%$q%")->paginate(null, ['id', 'name as text']);
     }
 }
